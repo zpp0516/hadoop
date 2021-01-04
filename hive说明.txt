@@ -1,0 +1,57 @@
+master安装hive server，slave1安装 hive client，slave2安装mysql
+mysql密码：ylw@Y156
+allowPublicKeyRetrieval=true&useSSL=false
+
+
+
+SHOW VARIABLES LIKE 'validate_password%';
+
+
+
+set global validate_password_policy=LOW;
+set global validate_password_length=4;
+
+
+
+create user 'root'@'slave1' identified by 'root';
+
+grant all privileges on *.* to 'root'@'slave1' with grant option;
+
+flush privileges;
+
+
+##hive-site.xml
+
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+
+  <!--连接数据库 -->
+ <property>
+	<name>javax.jdo.option.ConnectionURL</name>
+	<value>jdbc:mysql://slave2:3306/metastore?useSSL=false</value>
+	<description>JDBC connect string for a JDBC metastore</description>
+</property>
+
+ <!--驱动名 -->
+  <property>
+	<name>javax.jdo.option.ConnectionDriverName</name>
+	<value>com.mysql.jdbc.Driver</value>
+	<description>Driver class name for a JDBC metastore</description>
+ </property>
+
+  <!--数据库名称 -->
+ <property>
+	<name>javax.jdo.option.ConnectionUserName</name>
+	<value>root</value>
+	<description>username to use against metastore database</description>
+ </property>
+
+  <!--数据库密码 -->
+  <property>
+    <name>javax.jdo.option.ConnectionPassword</name>
+    <value>root</value>
+    <description>password to use against metastore database</description>
+  </property>
+
+</configuration>
