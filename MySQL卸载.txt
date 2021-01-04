@@ -1,0 +1,22 @@
+1.执行命令,找到所有的MySQL文件目录：
+   
+  find / -name mysql
+
+2.把查找出的目录删除
+
+  rm -rf 上面查出的文件夹
+
+
+3.etc/my.cnf 如果存在的话手动删除，这样mysql就卸载完成了。
+
+注:删除MySQL数据库目录(关键) ，否则password不更新（默认安装，如果自定义安装路径和链接路径ln -s ……请删除。）
+   rm -rf /var/lib/mysql
+
+
+
+
+
+
+
+
+

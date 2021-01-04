@@ -1,0 +1,79 @@
+1.解压命令,并且放到/usr/hadoop文件夹中
+   tar -zxvf mongodb-linux-x86_64-rhel70-4.2.5.tgz -C /usr/hadoop
+
+2.配置环境变量:
+   vi /etc/profile
+
+
+  export MONGODB_HOME=/usr/local/mongodb
+  export PATH=$PATH:$MONGODB_HOME/bin
+保存，重启：
+
+  source /etc/profile
+
+3.建立日志和数据文件夹
+  mkdir data
+  mkdir logs
+
+4.在mongodb-4.4.1 下的bin建立配置文件
+
+  mkdir conf
+
+在/bin下：vi mongodb.conf
+
+(1)第一种
+# 然后输入
+# mongodb 配置文件
+port=27017 #端口
+bind_ip=0.0.0.0 #默认是127.0.0.1
+dbpath=/java/mongodb/data #数据库存放
+logpath=/java/mongodb/logs/mongodb.log #日志文件
+fork=true #设置后台运行
+#auth=true #开启认证
+（2）第二种
+port=27017 #端口
+dbpath=/java/mongodb/data #数据库存放
+logpath=/java/mongodb/logs/mongodb.log #日志文件
+fork=true #设置后台运行
+logappend=true
+noauth=true
+
+5.启动mongdb命令:
+
+  在mongodb/bin下
+
+        mongod --config mongodb.conf
+
+6.启动完可以先本地连接一下
+
+   #连接客户端
+     mongo
+ 
+   # 插入数据
+     db.pigs.insert({'a':'b'})
+ 
+   # 查询数据
+     db.pigs.find()
+ 
+    ps:pigs 这个是自己定义的
+7.删除生成的log文件
+
+   pkill mongod
+
+
+
+
+二。例子
+
+use mydb
+
+db.stu.insert([ { 'name':"郭靖", "hometown":"蒙古", "age":20, "gender":true }, { 'name':"黄蓉", "hometown":"桃花岛", "age":18, "gender":false }, { 'name':"华筝", "hometown":"蒙古", "age":18, "gender":false }, { 'name':"黄药师", "hometown":"桃花岛", "age":40, "gender":true }, { 'name':"段誉", "hometown":"大理", "age":16, "gender":true }, {'name':"段王爷","hometown":"大理","age":45,"gender":true}, { 'name':"洪七公", "hometown":"华山", "age":18, "gender":true } ])
+
+
+
+
+
+
+
+
+
